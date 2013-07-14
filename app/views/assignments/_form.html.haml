@@ -1,0 +1,9 @@
+= form_for @assignment do |f|
+	= f.label :name
+	= f.text_field :name
+	= f.label :due_date
+	= f.date_select :due_date, :prompt => { discar_year: true, :day => 'Select day', :month => 'Select month' }
+	= f.label :class
+	= f.select(:day_class_id, @day_classes)
+	<br/>
+	= f.submit

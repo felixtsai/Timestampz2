@@ -1,5 +1,6 @@
 Timestampz2::Application.routes.draw do
 
+  devise_for :users
   root to: 'groups#index'
 
   resources :students

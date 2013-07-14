@@ -3,6 +3,10 @@ require 'spec_helper'
 describe GroupsController do
   let(:group) { FactoryGirl.create(:group) }
 
+  before :each do
+    sign_in
+  end
+
   describe "#new" do
     it "returns success" do
       get('new')

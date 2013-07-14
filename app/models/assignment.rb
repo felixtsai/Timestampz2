@@ -15,4 +15,8 @@ class Assignment < ActiveRecord::Base
   has_many :student_assignments
   has_many :students, through: :student_assignments
   belongs_to :day_class
+
+  validates_presence_of(:name)
+  validates_presence_of(:due_date)
+  validates_presence_of(:day_class)
 end

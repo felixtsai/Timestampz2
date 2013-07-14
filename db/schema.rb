@@ -9,67 +9,88 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704043148) do
+ActiveRecord::Schema.define(version: 20130713211959) do
 
-  create_table "assignments", :force => true do |t|
-    t.string   "name",         :null => false
-    t.date     "due_date",     :null => false
-    t.integer  "day_class_id", :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "assignments", force: true do |t|
+    t.string   "name",         null: false
+    t.date     "due_date",     null: false
+    t.integer  "day_class_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "day_classes", :force => true do |t|
-    t.string   "teacher",    :null => false
-    t.string   "period",     :null => false
-    t.string   "school",     :null => false
-    t.string   "subject",    :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "day_classes", force: true do |t|
+    t.string   "teacher",    null: false
+    t.string   "period",     null: false
+    t.string   "school",     null: false
+    t.string   "subject",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "groups", :force => true do |t|
-    t.string   "name",               :null => false
+  create_table "groups", force: true do |t|
+    t.string   "teacher_first_name", null: false
+    t.string   "teacher_last_name",  null: false
+    t.string   "name",               null: false
     t.string   "grade_level"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.string   "teacher_first_name", :null => false
-    t.string   "teacher_last_name",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "student_assignments", :force => true do |t|
+  create_table "student_assignments", force: true do |t|
     t.integer  "student_id"
     t.integer  "assignment_id"
     t.datetime "completion_date"
     t.string   "comment"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "student_day_classes", :force => true do |t|
+  create_table "student_day_classes", force: true do |t|
     t.integer  "student_id"
     t.integer  "day_class_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "student_groups", :force => true do |t|
+  create_table "student_groups", force: true do |t|
     t.integer  "student_id"
     t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "students", :force => true do |t|
-    t.string   "first_name",       :null => false
-    t.string   "last_name",        :null => false
-    t.string   "school",           :null => false
-    t.string   "grade_level",      :null => false
+  create_table "students", force: true do |t|
+    t.string   "first_name",       null: false
+    t.string   "last_name",        null: false
+    t.string   "school",           null: false
+    t.string   "grade_level",      null: false
     t.string   "homeroom_teacher"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                              default: "", null: false
+    t.string   "encrypted_password",     limit: 128, default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                      default: 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
