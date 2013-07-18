@@ -6,13 +6,14 @@ class AssignmentsController < ApplicationController
 
 	def new
 		@assignment = Assignment.new
-		@day_classes = DayClass.all.map{|c| [c.subject, c.id] }
+		@day_classes = DayClass.all.map{|c| ["#{c.subject}, period #{c.period}, #{c.school}", c.id] }
 	end
 
 	def create
 		@assignment = Assignment.new(params[:assignment])
 		@assignment.day_class_id = params[:assignment][:day_class_id]
 		if @assignment.save
+			flash[:success] = "Assignment successfully created!"
 			redirect_to assignments_path
 		else
 			redirect_to new_assignment_path
@@ -27,6 +28,7 @@ class AssignmentsController < ApplicationController
 	def update
 		@assignment = Assignment.find(params[:id])
 		if @assignment.update_attributes(params[:assignment])
+			flash[:success] = "Assignment successfully updated."
 			redirect_to assignments_path
 		else
 			flash[:error] = @assignment.errors

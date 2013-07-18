@@ -1,4 +1,15 @@
 %h1 Assignments
 
-- @assignments.each do |assignment|
-  = assignment.name
+%table.table.table-striped
+	%tr
+		%th Name
+		%th Due Date
+		%th
+	- @assignments.each do |assignment|
+		%tr
+			%td
+				= assignment.name
+			%td
+				= assignment.due_date
+			%td 
+				= button_to 'Delete', assignment_path(assignment), method: 'delete'
