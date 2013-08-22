@@ -7,7 +7,9 @@ Timestampz2::Application.routes.draw do
   match '/assignments/add_form', to: 'assignments#add_form', via: :get
 
   
-  resources :groups
+  resources :groups do
+    resources :students, only: [:index, :show]
+  end
 
   resources :schools, shallow: true do
     resources :teachers, except: [:show, :index]

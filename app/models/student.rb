@@ -28,4 +28,17 @@ class Student < ActiveRecord::Base
   validates_presence_of :grade_level
 
   scope :by_last_name, order("last_name")
+
+  def name
+    self.first_name + ' ' + self.last_name
+  end
+
+  def incomplete_percentage
+    (student_assignments.incomplete.count.to_f / student_assignments.count.to_f) * 100
+  end
+
+  def complete_percentage
+    100 - incomplete_percentage
+  end
+
 end

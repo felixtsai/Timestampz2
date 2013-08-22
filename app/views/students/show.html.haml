@@ -1,0 +1,26 @@
+%h1 
+	= @student.name
+	= "Grade #{@student.grade_level}"
+
+%h3 Assignments
+
+%h4
+	Complete:
+	= "#{@student.complete_percentage.to_i}" + "%"
+	Incomplete:
+	= "#{@student.incomplete_percentage.to_i}" + "%"
+.row
+	.span7
+		%table.table.table-striped
+			%tr
+				%th Name
+				%th Due Date
+				%th Status
+				-@assignments.each do |s_a|
+					%tr
+						%td
+							= s_a.assignment.name
+						%td
+							=s_a.assignment.due_date
+						%td
+							=s_a.completion_date || "incomplete"

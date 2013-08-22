@@ -22,4 +22,14 @@ class Group < ActiveRecord::Base
   validates_presence_of(:teacher_last_name)
 
   scope :by_teacher, order("teacher_first_name")
+
+  def complete_percentage
+  	totals = self.students.map { |student| student.complete_percentage }
+  	totals.reduce(:+) / self.students.count
+  end
+
+  def incomplete_percentage
+  	totals = self.students.map { |student| student.incomplete_percentage }
+  	totals.reduce(:+) / self.students.count
+  end
 end

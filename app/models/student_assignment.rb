@@ -16,4 +16,10 @@ class StudentAssignment < ActiveRecord::Base
 
   belongs_to :student
   belongs_to :assignment
+
+  scope :incomplete , -> { where(completion_date: nil) }
+
+  scope :past_due, -> { where('assignment_id in (SELECT id FROM assignments
+    WHERE due_date < ?)', Date.today) }
+
 end
