@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
 
   def show
     @student = Student.find(params[:id])
-    @assignments = @student.student_assignments.order("completion_date DESC")
+    @student_assignments = @student.student_assignments.order("completion_date DESC")
   end
 
   def new
@@ -25,8 +25,8 @@ class StudentsController < ApplicationController
       flash[:success] = "Student successfully created!"
       redirect_to new_student_path
     else
-      flash[:error] = "Error. Not all fields were completed."
-      redirect_to new_student_path
+      flash[:error] = "Errors. Please try again."
+      render :new
     end
   end
 
@@ -58,5 +58,10 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @student.delete
     redirect_to students_path
+  end
+
+  def assignments
+    @student = Student.find(params[:id])
+    @student_assignments = @student.student_assignments
   end
 end

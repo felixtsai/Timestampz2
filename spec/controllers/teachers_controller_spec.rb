@@ -18,7 +18,7 @@ describe TeachersController do
 
   describe '#create' do
     before(:each) do
-      @params = { teacher: { '0' => { id: teacher.id, name: "Sequoia" }}, school_id: school.id }
+      @params = { teacher: { '0' => { id: teacher.id, first_name: "Sequoia", last_name: "Johnson" }}, school_id: school.id }
     end
 
     context 'with correct params' do
@@ -69,7 +69,7 @@ describe TeachersController do
 
     context 'successful update' do
       before(:each) do
-        put('update', id:teacher.object_id)
+        put('update', { id: teacher.id, teacher: { last_name: "O'Reilly" }})
       end
       
       it 'redirects upon success' do
@@ -84,7 +84,7 @@ describe TeachersController do
     context 'unsuccessful update' do
       it 'renders edit' do
         Teacher.any_instance.stub(:update_attributes).and_return(nil)
-        put('update', id: teacher.object_id, teacher: { name: ""})
+        put('update', id: teacher.object_id, teacher: { last_name: ""})
         response.should render_template 'edit'
       end
     end

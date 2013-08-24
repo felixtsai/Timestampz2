@@ -1,0 +1,21 @@
+%h1 
+  = @student.name
+  = "Grade #{@student.grade_level}"
+
+%h3 Assignments
+
+.row
+  .span7
+    %table.table.table-striped
+      %tr
+        %th Name
+        %th Due Date
+        %th Status
+        -@student_assignments.each do |s_a|
+          %tr
+            %td
+              = s_a.name
+            %td
+              =s_a.assignment.due_date
+            %td
+              =s_a.completion_date || "incomplete"

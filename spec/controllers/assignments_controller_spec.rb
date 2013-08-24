@@ -18,8 +18,30 @@ describe AssignmentsController do
       expect(assigns(:assignments)).to eq([assignment])
     end
 
+    it 'assigns day_classes' do
+      expect(assigns(:day_classes)).to eq(DayClass.by_name)
+    end
+
     it 'renders index page' do
       expect(response).to render_template("index")
+    end
+  end
+
+  describe '#new' do
+    before :each do
+      get :new
+    end
+
+    it 'has a route' do
+      expect(response).to be_successful
+    end
+
+    it 'assigns @assignment' do
+      expect(assigns(:assignment)).to be_a_new(Assignment)
+    end
+
+    it 'assigns @day_classes' do
+      expect(assigns(:day_classes)).to eq(DayClass.by_name)
     end
   end
 
@@ -56,18 +78,36 @@ describe AssignmentsController do
     end
   end
 
+  describe '#edit' do
+    before :each do
+      get :edit, id: assignment.id
+    end
+
+    it 'has a route' do
+      expect(response).to be_successful
+    end
+
+    it 'assigns @assignment' do
+      expect(assigns(:assignment)).to eq(assignment)
+    end
+
+    it 'assigns @day_classes' do
+      expect(assigns(:day_classes)).to eq(DayClass.by_name)
+    end
+  end
+
   describe '#update' do
 
     it 'changes assignments attributes' do
       assignment_attributes = {
         name: 'new name'
       }
-      post :update, id: assignment.id, assignment: assignment_attributes
+      post :update, id: assignment.id, assignment: { '0' => assignment_attributes }
       Assignment.first.name.should == 'new name'
     end
 
     it 'redirects to index' do
-      post :update, id: assignment.id
+      post :update, id: assignment.id, assignment: { '0' => {} }
       expect(response).to redirect_to(assignments_path)
     end
   end
@@ -86,5 +126,4 @@ describe AssignmentsController do
       expect(response).to redirect_to(assignments_path)
     end
   end
-
 end

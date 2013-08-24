@@ -1,0 +1,7 @@
+%h3
+  = "#{@s_a.student.first_name} #{@s_a.student.last_name}"
+%h4
+  = "Assignment: #{@s_a.name} due #{@s_a.due_date}"
+
+= render partial: 'form'
+

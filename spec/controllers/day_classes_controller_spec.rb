@@ -4,21 +4,37 @@ describe DayClassesController do
   let(:day_class) { FactoryGirl.create(:day_class) }
   let(:user) { FactoryGirl.create(:user) }
   let(:school) { FactoryGirl.create(:school) }
+  let(:teacher) { FactoryGirl.create(:teacher, school_id: school.id ) }
 
   before(:each) do
     sign_in user
   end
 
   describe "#new" do
-    it "returns success" do
+    before :each do
       get(:new, school_id: school.id)
+    end
+
+    it "returns success" do
       response.should be_successful
+    end
+
+    it "assigns @school" do
+      expect(assigns(:school)).to eq(school)
+    end
+
+    it "assigns @teachers" do
+      expect(assigns(:teachers)).to eq(school.teachers)
+    end
+
+    it "assigns @day_class" do
+      expect(assigns(:day_class)).to be_a_new(DayClass)
     end
   end
 
   describe '#create' do
     before(:each) do
-      @params = { day_class: { '0' => { id: day_class.id, period: "1st", subject: "Math" }}, school_id: school.id }
+      @params = { day_class: { '0' => { id: day_class.id, period: "1st", subject: "Math", teacher_id: teacher.id }}, school_id: school.id }
     end
 
     context 'with correct params' do

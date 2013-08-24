@@ -23,7 +23,7 @@ describe SchoolsController do
     context 'with correct params' do
       it 'redirects' do
         post(:create, @params)
-        response.should redirect_to(new_teacher_path)
+        response.should be_redirect
       end
 
       it 'saves to the database' do
@@ -53,7 +53,7 @@ describe SchoolsController do
 
     it "assigns @schools" do
       mock_schools = double("school")
-      School.stub(:all).and_return(mock_schools)
+      School.stub(:by_name).and_return(mock_schools)
       get('index')
       assigns(:schools).should == mock_schools
     end

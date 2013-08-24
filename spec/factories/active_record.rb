@@ -2,14 +2,14 @@
 
 FactoryGirl.define do
   factory :assignment do
-  	name "Assignment 1"
-  	due_date Time.now + 2.days
-  	association :day_class
+    name "Assignment 1"
+    due_date Time.now + 2.days
+    association :day_class
   end
 
   factory :day_class do
-  	period "4th"
-  	subject "Math"
+    period "3rd"
+    subject "Math"
     association :school, strategy: :build
     association :teacher, strategy: :build
   end
@@ -27,9 +27,13 @@ FactoryGirl.define do
   factory :student do
     first_name "Betty"
     last_name "Rubble"
+    grade_level "6th"
     association :school
-    association :group
-    association :day_class
+  end
+
+  factory :student_day_class do
+    association :student, strategy: :build
+    association :day_class, strategy: :build
   end
 
   factory :teacher do

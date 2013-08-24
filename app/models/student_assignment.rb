@@ -12,10 +12,13 @@
 #
 
 class StudentAssignment < ActiveRecord::Base
-  attr_accessible :assignment_id, :completed, :student_id
+  attr_accessible :assignment_id, :completion_date, :student_id, :comment
 
   belongs_to :student
   belongs_to :assignment
+
+  delegate :name, to: :assignment
+  delegate :due_date, to: :assignment
 
   scope :incomplete , -> { where(completion_date: nil) }
 

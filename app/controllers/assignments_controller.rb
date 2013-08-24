@@ -30,7 +30,7 @@ class AssignmentsController < ApplicationController
 
   def edit
     @assignment = Assignment.find(params[:id])
-    @day_classes = DayClass.all.by_name
+    @day_classes = DayClass.by_name
   end
 
   def update

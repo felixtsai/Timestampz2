@@ -47,16 +47,6 @@
           <%= link_to "TimeStampz", root_path, class: 'brand' %>
         <ul class="nav">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Assignments
-              <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "All Assignments", assignments_path %></li>
-              <li><%= link_to "Create Assignments", new_assignment_path %></li>
-            </ul>
-          </li>
-          <li class="dropdown">
             <a href="#" class="dropdown-toggle"data-toggle="dropdown">
               Group
               <b class="caret"></b>
@@ -64,6 +54,16 @@
             <ul class="dropdown-menu">
               <li><%= link_to "All Groups",groups_path %></li>
               <li><%= link_to "Create Group",new_group_path %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Assignment
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "All Assignments", assignments_path %></li>
+              <li><%= link_to "Create Assignments", new_assignment_path %></li>
             </ul>
           </li>
           <li class="dropdown">

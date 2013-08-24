@@ -1,26 +1,54 @@
-%h1 
-	= @student.name
-	= "Grade #{@student.grade_level}"
+.row
+  .span7
+    %h2
+      = @student.name
+    %h3
+      = "#{@student.grade_level}"
+    %h4
+      Group:
+      = "#{@student.groups.first.teacher_first_name} #{@student.groups.first.teacher_last_name}"
+      %br
+    %h5
+      Period 1:
+      = "#{@student.day_classes.period_one.first.name}"
+      %br
+      Period 2:
+      = "#{@student.day_classes.period_two.first.name}"
+      %br
+      Period 3:
+      = "#{@student.day_classes.period_three.first.name}"
+      %br
+
 
 %h3 Assignments
 
-%h4
-	Complete:
-	= "#{@student.complete_percentage.to_i}" + "%"
-	Incomplete:
-	= "#{@student.incomplete_percentage.to_i}" + "%"
+/ %h4
+/   Complete:
+/   = "#{@student.complete_percentage.to_i}" + "%"
+/   Incomplete:
+/   = "#{@student.incomplete_percentage.to_i}" + "%"
 .row
-	.span7
-		%table.table.table-striped
-			%tr
-				%th Name
-				%th Due Date
-				%th Status
-				-@assignments.each do |s_a|
-					%tr
-						%td
-							= s_a.assignment.name
-						%td
-							=s_a.assignment.due_date
-						%td
-							=s_a.completion_date || "incomplete"
+  .span7
+    %table.table.table-striped
+      %tr
+        %th Name
+        %th Class
+        %th Due Date
+        %th Completed
+        %th Comments
+        %th Edit
+        -@student_assignments.each do |s_a|
+          %tr
+            %td
+              = s_a.assignment.name
+            %td
+              = s_a.assignment.day_class.name
+            %td
+              = s_a.assignment.due_date.strftime('%m-%d-%Y')
+            %td
+              = s_a.completion_date.strftime('%m-%d-%Y') || "incomplete"
+            %td
+              = s_a.comment
+            %td
+              .label.label-info
+                = link_to "Edit", edit_student_assignment_path(s_a), class: "button_link"

@@ -16,7 +16,7 @@ class SchoolsController < ApplicationController
   end
 
   def index
-    @schools = School.all.by_name
+    @schools = School.by_name
   end
 
   def show

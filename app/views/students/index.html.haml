@@ -15,7 +15,7 @@
         - @students.each do |student|
           %tr
             %td
-              = "#{student.first_name} #{student.last_name}"
+              = link_to "#{student.first_name} #{student.last_name}", student_path(student)
             %td
               = "#{student.groups.first.teacher_first_name} #{student.groups.first.teacher_last_name}"
             %td
