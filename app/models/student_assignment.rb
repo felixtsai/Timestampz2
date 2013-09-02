@@ -22,4 +22,6 @@ class StudentAssignment < ActiveRecord::Base
   scope :past_due, -> { where('assignment_id in (SELECT id FROM assignments
     WHERE due_date < ?)', Date.today) }
 
+  scope :today, -> { where("created_at < ? AND created_at > ?", Date.tomorrow, Date.yesterday)}
+
 end
