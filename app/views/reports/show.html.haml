@@ -1,0 +1,8 @@
+%h1 Reports
+
+- if @groups
+  = render partial: 'group_show'
+- elsif @grades
+  = render partial: 'grade_show'
+- else
+  "Something Went Wrong!"

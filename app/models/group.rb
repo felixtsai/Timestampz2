@@ -32,4 +32,9 @@ class Group < ActiveRecord::Base
   	totals = self.students.map { |student| student.incomplete_percentage }
   	totals.reduce(:+) / self.students.count
   end
+
+  def past_due_percentage
+    totals = self.students.map { |student| student.past_due_percentage }
+    totals.reduce(:+) / self.students.count
+  end
 end

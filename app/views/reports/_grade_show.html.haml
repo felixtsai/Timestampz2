@@ -1,0 +1,15 @@
+%h3 Reports by Grade
+
+%table.table.table-striped
+	%tr
+		%th Grade Level
+		%th Complete Percentage
+		%th Incomplete Percentage
+	- @grades.each do |grade|
+		%tr
+			%td
+				= grade
+			%td
+				= grade_complete_percentage(grade)
+			%td
+				= grade_incomplete_percentage(grade)

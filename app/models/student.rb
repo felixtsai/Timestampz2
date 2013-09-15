@@ -43,4 +43,8 @@ class Student < ActiveRecord::Base
   def complete_percentage
     100 - incomplete_percentage
   end
+
+  def past_due_percentage
+    (student_assignments.past_due.count.to_f / student_assignments.count.to_f) * 100
+  end
 end

@@ -1,0 +1,18 @@
+%h3 Reports by Group
+
+%table.table.table-striped
+	%tr
+		%th Name
+		%th Complete Percentage
+		%th Incomplete Percentage
+		%th Past Due Percentage
+	- @groups.each do |group|
+		%tr
+			%td
+				= link_to group.name, group_path(group.id)
+			%td
+				= group.complete_percentage
+			%td
+				= group.incomplete_percentage
+			%td 
+				= group.past_due_percentage
